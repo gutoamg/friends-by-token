@@ -19,29 +19,31 @@ export const MouseMoveContext = createContext();
 
 export const MouseProvider = (props) => {
 	// console.log("Mouse provider loaded");
-	const [mousePos, setMousePos] = useState(0);
+	const [mouseInfo, setMouseInfo] = useState(0);
 
 
 	useEffect(() => {
-		setMousePos({
+		setMouseInfo({
             mouseX: 0, 
-            mouseY: 0
+            mouseY: 0,
+			target: 0
         });
 	}, []);
 
 
 	// Adding global Mouse event listener
 	useEventListener('mousemove', (e) => {
-		setMousePos({
+		setMouseInfo({
             mouseX: e.clientX, 
-            mouseY: e.clientY
+            mouseY: e.clientY,
+			target: e.target.id
         });
 	});
 
 	return (
 		<MouseMoveContext.Provider
 			value={{
-				mousePos,
+				mouseInfo,
 			}}
 		>
 			{props.children}

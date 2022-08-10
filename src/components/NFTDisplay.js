@@ -3,16 +3,21 @@ import { ScrollContext } from '../contexts/ScrollContext';
 // import { MouseMoveContext } from '../contexts/MouseMoveContext';
 import classNames from '../../styles/NFTDisplay.module.scss';
 import Image from 'next/image';
+import { MouseMoveContext } from '../contexts/MouseMoveContext';
 
 
 
 const NFTDisplay = () => {
 	let { animation_value, percentageScrolled } = useContext(ScrollContext);
-	// let { mousePos } = useContext(MouseMoveContext);
+	const { mouseInfo } = useContext(MouseMoveContext);
+	// let { mouseInfo } = useContext(MouseMoveContext);
 	const [animationValues, setAnimationValues] = useState({
-		cardNumber: 0
+		cardNumber: 0,
+		bgGradientLeft: `hsla(0, 73%, 39%, 1)`,
+		bgGradientRight: `hsla(0, 73%, 39%, 1)`,
 	});
 	const [nftUrl, setNftUrl] = useState("");
+	const [displayElement, setdisplayElement] = useState("inline-block");
 
 	const imageURLs = [
 		"https://ipfs.pixura.io/ipfs/QmU3Boe8JP6dFHhtgwNsHxcY2Wyo5nQUY4y9vGCnZaaD3t/the-last.jpg",
@@ -45,22 +50,39 @@ const NFTDisplay = () => {
 		let newCardNumber = animation_value(0, 1, percentageScrolled, 0, 11);
 		if (newCardNumber >= 10.5) newCardNumber = 11;
 		else newCardNumber = Math.floor(newCardNumber);
+		const newBgGradientLeft = animation_value(0, 1, percentageScrolled, -150, 300);
+		const newBgGradientRight = animation_value(0, 1, percentageScrolled, 50, 1000);
 		setAnimationValues(prevValues => {
 			prevValues.cardNumber = newCardNumber;
+			prevValues.bgGradientLeft = `hsla(${newBgGradientLeft}, 73%, 39%, 1)`;
+			prevValues.bgGradientRight = `hsla(${newBgGradientRight}, 73%, 39%, 1)`;
 			return prevValues;
 		});
 		setNftUrl(imageURLs[newCardNumber]);
 	}, [percentageScrolled]);
 
+	useEffect(() => {
+		if (mouseInfo.target === 'NFTimage') setdisplayElement("none");
+		else setdisplayElement("inline-block");
+	}, [mouseInfo])
+
+
 
 	return (
 		<div className={classNames.NFTContainer}>
-			<Image
-				src={nftUrl}
-				alt="Picture of the author"
-				width={300}
-				height={300}
-			/>
+			<div id='NFTimage' className={`${classNames.imageBg} ${classNames.curved}`} style={{
+				"backgroundImage": `linear-gradient(${animationValues.bgGradientRight}, ${animationValues.bgGradientLeft})`,
+			}}>
+				<div id='NFTimage' className={classNames.imageBgAbove} style={{ "display": displayElement }} ></div>
+				<Image
+					id='NFTimage'
+					className={`${classNames.curved} ${classNames.NFTimage}`}
+					src={nftUrl}
+					alt="Picture of the author"
+					width={300}
+					height={300}
+				/>
+			</div>
 		</div>
 	)
 }

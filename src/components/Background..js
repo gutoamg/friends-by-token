@@ -8,15 +8,17 @@ const Background = () => {
 	// console.log("Rendering Background component", stringToParse);
 	const mouseFollowerRef = useRef(null);
 	let { animation_value, percentageScrolled } = useContext(ScrollContext);
-	let { mousePos } = useContext(MouseMoveContext);
+	let { mouseInfo } = useContext(MouseMoveContext);
 	const [animationValues, setAnimationValues] = useState({
 		leftBallColor: `hsl(0, 73%, 39%)`,
 		rightBallColor: `hsl(0, 73%, 39%)`,
 		bgGradientLeft: `hsl(0, 73%, 39%)`,
 		bgGradientRight: `hsl(0, 73%, 39%)`,
+		visCursorWidth: `200px`,
+		visCursorHeight: `200px`,
 	});
 
-	
+
 
 	useEffect(() => {
 		// console.log(scrollPos);
@@ -34,47 +36,72 @@ const Background = () => {
 	}, [percentageScrolled]);
 
 	useEffect(() => {
-		const newLeftPos = (mousePos.mouseX) - mouseFollowerRef.current.offsetWidth / 2;
-		const newTopPos = (mousePos.mouseY) - mouseFollowerRef.current.offsetHeight / 2;
+		const newLeftPos = (mouseInfo.mouseX) - mouseFollowerRef.current.offsetWidth / 2;
+		const newTopPos = (mouseInfo.mouseY) - mouseFollowerRef.current.offsetHeight / 2;
 		// console.log(newLeftPos, newTopPos);
+		let newVisCursorW = 0;
+		let newVisCursorH = 0;
+		if (mouseInfo.target === 'NFTimage') {
+			newVisCursorW = 0;
+			newVisCursorH = 0;
+		} else  {
+			newVisCursorW = 200;
+			newVisCursorH = 200;
+		}
 		setAnimationValues(prevValues => {
 			prevValues.bgGradientPosLeft = `${newLeftPos}px`;
 			prevValues.bgGradientPosTop = `${newTopPos}px`;
+			prevValues.visCursorWidth = `${newVisCursorW}px`;
+			prevValues.visCursorHeight = `${newVisCursorH}px`;
 			return prevValues;
 		});
-	}, [mousePos]);
+	}, [mouseInfo]);
 
 
 	return (
 		<div className={classNames.backgroundContainer}>
 			<div className={classNames.blurredLayer}></div>
-			<div 
-				className={classNames.leftBall} 
+			<div
+				className={classNames.leftBall}
 				style={{
 					"backgroundColor": animationValues.leftBallColor,
 				}}
 			></div>
-			<div 
-				className={classNames.rightBall} 
+			<div
+				className={classNames.rightBall}
 				style={{
 					"backgroundColor": animationValues.rightBallColor
 				}}
 			></div>
-			<div 
-				className={classNames.bgGradient} 
+			<div
+				className={classNames.bgGradient}
 				style={{
-					"background": `linear-gradient(${animationValues.bgGradientLeft}, ${animationValues.bgGradientRight})`,
+					"backgroundImage": `linear-gradient(${animationValues.bgGradientLeft}, ${animationValues.bgGradientRight})`,
 				}}
 			></div>
-			<div 
+			<div
 				ref={mouseFollowerRef}
-				className={classNames.cursorFollower} 
+				className={classNames.cursorFollower}
 				style={{
-					"background": `linear-gradient(${animationValues.bgGradientRight}, ${animationValues.bgGradientLeft})`,
+					"backgroundImage": `linear-gradient(${animationValues.bgGradientRight}, ${animationValues.bgGradientLeft})`,
 					"left": animationValues.bgGradientPosLeft,
 					"top": animationValues.bgGradientPosTop,
 				}}
 			></div>
+			<div className={classNames.visibleCursorFollower}
+				style={{
+					"backgroundImage": `radial-gradient(${animationValues.bgGradientRight}, ${animationValues.bgGradientLeft})`,
+					"left": animationValues.bgGradientPosLeft,
+					"top": animationValues.bgGradientPosTop,
+					"width": animationValues.visCursorWidth,
+					"height": animationValues.visCursorHeight,
+				}}
+			></div>
+			<div className={classNames.textBox}>
+				<p className={classNames.testtext} style={{
+						"backgroundImage": `linear-gradient(${animationValues.bgGradientRight}, ${animationValues.bgGradientLeft})`,
+				}}>This is text</p>
+			</div>
 		</div>
 	)
 }
