@@ -1,0 +1,13 @@
+{
+    "presets": [
+        [
+            "next/babel", 
+            {
+                "debug": true,
+                "useBuiltIns": "usage",
+                "corejs": "3.22"
+            }
+        ]
+    ],
+    "plugins": []
+}

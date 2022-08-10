@@ -1,0 +1,17 @@
+@mixin default-styles {
+	margin: 0px;
+	padding: 0px;
+	box-sizing: border-box;
+}
+
+.backgroundText {
+    z-index: 4;
+    width: 100%;
+    height: auto;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    color: black;
+    font-weight: 800;
+    font-size: 50px;
+}
