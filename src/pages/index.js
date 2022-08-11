@@ -42,8 +42,8 @@ export default function Home() {
 				<meta name="twitter:creator" content={'Augusto M. Gouveia'} key="twhandle" />
 
             {/* Open Graph */}
-				<meta property="og:url" content={'https://friends-by-token-bxjg5046r-gutoamg.vercel.app/'} key="ogurl" />
-				<meta property="og:image" content='https://friends-by-token-bxjg5046r-gutoamg.vercel.app/intro-screenshot.png' key="ogimage" />
+				<meta property="og:url" content={'https://friends-by-token.vercel.app/'} key="ogurl" />
+				<meta property="og:image" content='https://friends-by-token.vercel.app/intro-screenshot.png' key="ogimage" />
 				<meta property="og:site_name" content={'Friends-by-T0ken'} key="ogsitename" />
 				<meta property="og:title" content={"Friends-by-T0ken"} key="ogtitle" />
 				<meta property="og:description" content={'A new way of making friends, through NFTs. Our culture is changing and so the ways we make create connections'} key="ogdesc" />
