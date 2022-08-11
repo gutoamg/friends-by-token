@@ -36,8 +36,8 @@ const Background = () => {
 	}, [percentageScrolled]);
 
 	useEffect(() => {
-		const newLeftPos = (mouseInfo.mouseX) - mouseFollowerRef.current.offsetWidth / 2;
-		const newTopPos = (mouseInfo.mouseY) - mouseFollowerRef.current.offsetHeight / 2;
+		const newLeftPos = (mouseInfo.mouseX);
+		const newTopPos = (mouseInfo.mouseY);
 		// console.log(newLeftPos, newTopPos);
 		let newVisCursorW = 0;
 		let newVisCursorH = 0;
@@ -45,8 +45,8 @@ const Background = () => {
 			newVisCursorW = 0;
 			newVisCursorH = 0;
 		} else  {
-			newVisCursorW = 200;
-			newVisCursorH = 200;
+			newVisCursorW = 100;
+			newVisCursorH = 100;
 		}
 		setAnimationValues(prevValues => {
 			prevValues.bgGradientPosLeft = `${newLeftPos}px`;
@@ -97,11 +97,6 @@ const Background = () => {
 					"height": animationValues.visCursorHeight,
 				}}
 			></div>
-			<div className={classNames.textBox}>
-				<p className={classNames.testtext} style={{
-						"backgroundImage": `linear-gradient(${animationValues.bgGradientRight}, ${animationValues.bgGradientLeft})`,
-				}}>This is text</p>
-			</div>
 		</div>
 	)
 }

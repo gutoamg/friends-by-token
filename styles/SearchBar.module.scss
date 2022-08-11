@@ -1,0 +1,242 @@
+@mixin default-styles {
+	margin: 0px;
+	padding: 0px;
+	box-sizing: border-box;
+}
+
+.menu {
+	display: block;
+	z-index: 20;
+	display: block;
+	width: 100%;
+	height: auto;
+	position: absolute;
+	transform: translate(-50%, -50%);
+	top: 50%;
+	left: 50%;
+	transition: all 300ms ease-in;
+	overflow: visible;
+}
+
+.menu__container {
+	width: 100%;
+	height: 100%;
+	position: relative;
+	-webkit-transform: translateX(-50%);
+	transform: translateX(-50%);
+	left: 50%;
+	transition: all 300ms ease-in;
+}
+
+.loggedMenu {
+	transform: translate(-50%, 0%) scale3d(4, 4, 1);
+	opacity: 0;
+}
+
+.menu__logo {
+	display: inline-block;
+	width: auto;
+	position: relative;
+	transform: translateX(-50%);
+	left: 50%;
+	font-family: 'Raleway', sans-serif;
+	font-size: 10vw;
+	font-weight: 700;
+	letter-spacing: -5px;
+	color: #212121;
+	text-align: center;
+	vertical-align: middle;
+	text-decoration: none;
+
+	&_span {
+		display: inline-block;
+		font-family: 'Raleway', sans-serif;
+		font-size: 10vw;
+		font-weight: 700;
+		color: #212121;
+		color: transparent;
+		background-image: linear-gradient(to right, #02d16a, #1100ff);
+		background-clip: text;
+		-webkit-background-clip: text;
+	}
+}
+
+.menu__logo:hover {
+	text-decoration: none;
+}
+
+.searchBar {
+	width: 80%;
+	max-width: 300px;
+	height: 32px;
+	transform: translate(-50%, 0%);
+	position: relative;
+	top: 0%;
+	left: 50%;
+	margin-top: 50px;
+	color: #ffffff;
+	background-color: rgb(14, 8, 8);
+	border-radius: 5px;
+}
+
+.searchBar:focus,
+.searchBar:focus-visible {
+	background-color: rgb(20, 20, 20);
+}
+
+.searchBar__label {
+	width: 1px;
+	opacity: 0;
+	position: absolute;
+}
+
+.searchBar__input {
+	width: calc(100% - 40px - 40px);
+	height: 100%;
+	position: relative;
+	top: 0px;
+	left: 0px;
+	color: white;
+	background-color: rgba($color: rgb(14, 8, 8), $alpha: 0.6);
+	border: none;
+	border-radius: 5px 0px 0px 5px;
+	padding-left: 10px;
+	text-align: left;
+	font-size: 15px;
+	line-height: 32px;
+}
+
+.searchBar__input:focus {
+	background-color: rgba($color: rgb(14, 8, 8), $alpha: 0.6);
+	outline: none;
+}
+
+// .searchBar__input:focus~.searchBar__clear {
+// 	// background-color: rgb(20, 20, 20);
+// }
+
+.searchBar__input:focus-visible {
+	border: none;
+	outline: none;
+}
+
+// .searchBar__input:focus-visible~.searchBar__clear {
+// 	// background-color: rgb(20, 20, 20);
+// }
+
+.searchBar__clear {
+	width: 40px;
+	height: 100%;
+	position: relative;
+	-webkit-transform: translateY(-50%);
+	transform: translateY(-50%);
+	top: 50%;
+	right: 0px;
+	float: right;
+	margin-left: auto;
+	border: none;
+	background-color: rgb(14, 8, 8);
+}
+
+.searchBar__clear::before {
+	content: "";
+	display: inline-block;
+	width: 12px;
+	height: 12px;
+	position: absolute;
+	-webkit-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+	top: 50%;
+	left: 50%;
+	background: url("../public/exit-icon.svg");
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-attachment: initial;
+}
+
+.searchBar__search {
+	width: 40px;
+	height: 100%;
+	position: relative;
+	-webkit-transform: translateY(-50%);
+	transform: translateY(-50%);
+	top: 50%;
+	right: 0px;
+	float: right;
+	margin-left: auto;
+	border: none;
+	background-color: rgb(14, 8, 8);
+	border-radius: 0px 5px 5px 0px;
+}
+
+.searchBar__search::before {
+	content: "";
+	display: inline-block;
+	width: 30px;
+	height: 30px;
+	position: absolute;
+	-webkit-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+	top: 50%;
+	left: 50%;
+	background-image: url("../public/enter-icon.png");
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-attachment: initial;
+}
+
+@media (max-width: 1000px) {
+	.menu__logo {
+		letter-spacing: -2px;
+	}
+}
+
+@media (max-width: 1200px) {
+	.searchBar {
+		margin-top: 10px;
+	}
+}
+
+@supports ((-webkit-backdrop-filter: blur()) or (backdrop-filter: blur())) or (-webkit-backdrop-filter: blur()) {
+	.menu__container {
+
+		.searchBar {
+			color: white;
+			background: transparent;
+			backdrop-filter: blur(20px);
+			background-color: rgba($color: rgb(14, 8, 8), $alpha: 0.5);
+	
+			&:focus,
+			&:focus-visible {
+				background-color: transparent;
+			}
+	
+			&__input {
+				background-color: transparent;
+	
+				&:focus {
+					background-color: transparent;
+				}
+	
+				&:focus-visible,
+				&:focus-within {
+					background-color: transparent;
+				}
+			}
+	
+			&__clear {
+				background-color: transparent;
+			}
+	
+			&__search {
+				background-color: transparent;
+			}
+		}
+	}
+}

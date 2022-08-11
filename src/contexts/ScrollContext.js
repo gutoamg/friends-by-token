@@ -46,6 +46,7 @@ export const ScrollProvider = (props) => {
     const [scrollPos, setScrollPos] = useState(0);
     const [percentageScrolled, setPercentageScrolled] = useState(0);
     const [pageHeight, setPageHeight] = useState(0);
+    const [pageWidth, setPageWidth] = useState(0);
 
     useEffect(() => {
         setScrollPos(window.scrollY);
@@ -53,8 +54,8 @@ export const ScrollProvider = (props) => {
 
     // If there was resize event
     useEffect(() => {
-        console.log("Page HEIGHT:", pageHeight);
-    }, [pageHeight]);
+        console.log("Page HEIGHT - Width:", pageHeight, pageWidth);
+    }, [pageHeight, pageWidth]);
 
     // Adding global scroll event listener
     useEventListener('scroll', (e) => {
@@ -68,9 +69,12 @@ export const ScrollProvider = (props) => {
         <ScrollContext.Provider
             value={{
                 scrollPos,
+                pageHeight,
                 setPageHeight,
                 animation_value,
-                percentageScrolled
+                percentageScrolled, 
+                pageWidth, 
+                setPageWidth
             }}
         >
             {props.children}

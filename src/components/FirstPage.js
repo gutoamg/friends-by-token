@@ -3,46 +3,65 @@ import { ScrollContext } from '../contexts/ScrollContext';
 import classNames from '../../styles/FirstPage.module.scss'
 
 
-let stringToParse = "Somthing I want to tell themm later despiute all the effrots to make it different than what we usually see in all our different sections.";
+let stringToParse = "By choosing 4 NFTs that you like the most. Click on the ones you liked and we'll show you people who have similar taste.";
 stringToParse = stringToParse.split(" ");
-// console.log(stringToParse);
 
 const arrayToText = (arrOfWords, startIndex, endIndex) => {
 	startIndex = Math.floor(startIndex);
 	endIndex = Math.ceil(endIndex);
 	let textFromArray = arrOfWords.slice(startIndex, endIndex);
 	textFromArray = textFromArray.join(" ");
-	
+
 	return textFromArray;
 }
 
 const FirstPage = () => {
-	// console.log("Rendering Background component", stringToParse);
-	let { animation_value, percentageScrolled } = useContext(ScrollContext);
+	let { animation_value, percentageScrolled, pageHeight, pageWidth } = useContext(ScrollContext);
 	const [animationValues, setAnimationValues] = useState({
-		backgroundTextTop: 0,
-		text: ''
+		subtitleText: '',
+		subtitleSize: 15,
+		titleSize: 10,
+		spacerHeight: pageHeight/4
 	});
 
-	
+
 
 	useEffect(() => {
-		// console.log(scrollPos);
-		const newTextPos = animation_value(0, 1, percentageScrolled, 0, 100);
-		let newText = animation_value(0, 1, percentageScrolled, 1, stringToParse.length);
-		newText = arrayToText(stringToParse, 0, newText);
+		let newSubtitleText = animation_value(0, 1, percentageScrolled, 1, stringToParse.length);
+		newSubtitleText = arrayToText(stringToParse, 0, newSubtitleText);
+		const minSubtitleSize = (0.06 * pageWidth > 85) ? (85 * 100 / pageWidth) : 6 // If text gets big takes 85px as value and converts it to vw
+		const newSubtitleSize = animation_value(0, 1, percentageScrolled, 15, minSubtitleSize);
+		// const newTitleMarginTop = animation_value(0, 1, percentageScrolled, 40, 16);
+		const newTitleSize = animation_value(0, 1, percentageScrolled, 10, 5);
+		// const newTitleLetterSp = animation_value(0, 1, percentageScrolled, -5, -2);
+		const newSpacerHeight = animation_value(0, 1, percentageScrolled, pageHeight/4, pageHeight/6);
 		setAnimationValues({
-			backgroundTextTop: newTextPos,
-			text: newText
+			// titleMarginTop: newTitleMarginTop,
+			titleSize: newTitleSize,
+			// titleLetterSp: newTitleLetterSp,
+			subtitleText: newSubtitleText,
+			subtitleSize: newSubtitleSize,
+			spacerHeight: newSpacerHeight,
 		});
-	}, [percentageScrolled]);
+	}, [percentageScrolled, pageHeight]);
 
-	// style={{ top: `${animationValues.backgroundTextTop}%` }}
+
 	return (
-		<div className={classNames.backgroundText}>
-			<p>
-				{animationValues.text}
-			</p>
+		<div className={classNames.firstPageContainer}>
+			<div className={classNames.titleSpacer} style={{"height": `${animationValues.spacerHeight}px`}}></div>
+			<div className={classNames.titleContainer}>
+				<h1 className={classNames.mainTitle} style={{
+					// "marginTop": `${animationValues.titleMarginTop}%`,
+					"fontSize": `${animationValues.titleSize}vw`,
+					// "letterSpacing": `${animationValues.titleLetterSp}px`
+				}}>Make friends</h1>
+				<p className={classNames.mainSubtitle} style={{ "fontSize": `${animationValues.subtitleSize}vw` }}>
+					{animationValues.subtitleText}
+				</p>
+			</div>
+			<div className={classNames.gallery}>
+
+			</div>
 		</div>
 	)
 }

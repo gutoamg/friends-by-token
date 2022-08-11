@@ -13,6 +13,7 @@
     top: 0%;
     left: 0%;
     background-color: black;
+    overflow: hidden;
 }
 
 .blurredLayer {
@@ -73,7 +74,7 @@
     width: 200px;
     height: 200px;
     position: fixed;
-    // transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
     top: 0%;
     left: 0%;
     background-color: red;
@@ -81,39 +82,14 @@
     border-radius: 50%;
 }
 
-.textBox {
-    @include default-styles;
-    z-index: 8;
-    position: fixed;
-    top: 20%;
-    left: 20%;
-    width: 80%;
-    height: 500px;
-    background-image: linear-gradient(to right, red, blue);
-    // background: none;
-    background-clip: text;
-    -webkit-background-clip: text;
-}
-
-.testtext {
-    @include default-styles;
-    z-index: 8;
-    color: transparent;
-    background: none;
-    background-clip: text;
-    -webkit-background-clip: text;
-    font-size: 100px;
-    font-weight: 800;
-}
-
 .visibleCursorFollower {
     @include default-styles;
     display: none;
     z-index: 6;
-    width: 200px;
-    height: 200px;
+    width: 100px;
+    height: 100px;
     position: fixed;
-    // transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
     top: 0%;
     left: 0%;
     background-color: red;
@@ -139,7 +115,9 @@
     .rightBall {
         display: inline-block;
     }
+}
 
+@media (any-pointer: coarse) or (any-pointer: fine) {
     .cursorFollower {
         display: inline-block;
     }
@@ -147,8 +125,4 @@
     .visibleCursorFollower {
         display: inline-block;
     }
-}
-
-@media (any-pointer: none) {
-    
 }
