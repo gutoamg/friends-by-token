@@ -37,11 +37,11 @@ export default function Home() {
 					content={'A new way of making friends, through NFTs. Our culture is changing and so the ways we make create connections'}
 				/>
 
-            // Twitter
+            {/* Twitter */}
 				<meta name="twitter:card" content='A new way of making friends, through NFTs. Our culture is changing and so the ways we make create connections' key="twcard" />
 				<meta name="twitter:creator" content={'Augusto M. Gouveia'} key="twhandle" />
 
-            //Open Graph
+            {/* Open Graph */}
 				<meta property="og:url" content={'https://friends-by-token-bxjg5046r-gutoamg.vercel.app/'} key="ogurl" />
 				<meta property="og:image" content='https://friends-by-token-bxjg5046r-gutoamg.vercel.app/intro-screenshot.png' key="ogimage" />
 				<meta property="og:site_name" content={'Friends-by-T0ken'} key="ogsitename" />
@@ -49,7 +49,7 @@ export default function Home() {
 				<meta property="og:description" content={'A new way of making friends, through NFTs. Our culture is changing and so the ways we make create connections'} key="ogdesc" />
 
 
-            // Favicons
+            {/* Favicons */}
 				<link rel="icon" type="image/png" href="/friends-by-token-icon.png" />
 				<meta name="theme-color" content="rgb(0,0,0)" />
 			</Head>
@@ -65,14 +65,14 @@ export default function Home() {
 }
 
 {/* <footer className={styles.footer}>
-				<a
-					href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-					target="_blank"
-					rel="noopener noreferrer"
-				>
-					Powered by{' '}
-					<span className={styles.logo}>
-						<Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-					</span>
-				</a>
-			</footer> */}
+	<a
+		href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
+		target="_blank"
+		rel="noopener noreferrer"
+	>
+		Powered by{' '}
+		<span className={styles.logo}>
+			<Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
+		</span>
+	</a>
+</footer> */}
