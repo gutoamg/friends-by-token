@@ -38,7 +38,6 @@ const Background = () => {
 	useEffect(() => {
 		const newLeftPos = (mouseInfo.mouseX);
 		const newTopPos = (mouseInfo.mouseY);
-		// console.log(newLeftPos, newTopPos);
 		let newVisCursorW = 0;
 		let newVisCursorH = 0;
 		if (mouseInfo.target === 'NFTimage') {

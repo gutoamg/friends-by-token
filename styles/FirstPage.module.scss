@@ -54,7 +54,7 @@
 }
 
 .gallery {
-
+    width: 100%;
 }
 
 // background: none;
@@ -67,10 +67,10 @@
     }
 }
 
-@media (max-width: 1200px) {
+// @media (max-width: 1200px) {
 	
-}
+// }
 
-@supports ((-webkit-backdrop-filter: blur()) or (backdrop-filter: blur())) or (-webkit-backdrop-filter: blur()) {
+// @supports ((-webkit-backdrop-filter: blur()) or (backdrop-filter: blur())) or (-webkit-backdrop-filter: blur()) {
 	
-}
+// }

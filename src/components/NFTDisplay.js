@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import { ScrollContext } from '../contexts/ScrollContext';
-// import { MouseMoveContext } from '../contexts/MouseMoveContext';
 import classNames from '../../styles/NFTDisplay.module.scss';
 import Image from 'next/image';
 import { MouseMoveContext } from '../contexts/MouseMoveContext';
@@ -10,7 +9,6 @@ import { MouseMoveContext } from '../contexts/MouseMoveContext';
 const NFTDisplay = () => {
 	let { animation_value, percentageScrolled } = useContext(ScrollContext);
 	const { mouseInfo } = useContext(MouseMoveContext);
-	// let { mouseInfo } = useContext(MouseMoveContext);
 	const [animationValues, setAnimationValues] = useState({
 		cardNumber: 0,
 		bgGradientLeft: `hsla(0, 73%, 39%, 1)`,
@@ -58,8 +56,9 @@ const NFTDisplay = () => {
 			prevValues.bgGradientRight = `hsla(${newBgGradientRight}, 73%, 39%, 1)`;
 			return prevValues;
 		});
-		setNftUrl(imageURLs[newCardNumber]);
-	}, [percentageScrolled, animation_value, imageURLs]);
+		const curImg = imageURLs[newCardNumber];
+		setNftUrl(curImg);
+	}, [percentageScrolled, animation_value]);
 
 	useEffect(() => {
 		if (mouseInfo.target === 'NFTimage') setdisplayElement("none");

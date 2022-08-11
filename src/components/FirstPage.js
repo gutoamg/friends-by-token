@@ -31,14 +31,10 @@ const FirstPage = () => {
 		newSubtitleText = arrayToText(stringToParse, 0, newSubtitleText);
 		const minSubtitleSize = (0.06 * pageWidth > 85) ? (85 * 100 / pageWidth) : 6 // If text gets big takes 85px as value and converts it to vw
 		const newSubtitleSize = animation_value(0, 1, percentageScrolled, 15, minSubtitleSize);
-		// const newTitleMarginTop = animation_value(0, 1, percentageScrolled, 40, 16);
 		const newTitleSize = animation_value(0, 1, percentageScrolled, 10, 5);
-		// const newTitleLetterSp = animation_value(0, 1, percentageScrolled, -5, -2);
-		const newSpacerHeight = animation_value(0, 1, percentageScrolled, pageHeight/4, pageHeight/6);
+		const newSpacerHeight = animation_value(0, 1, percentageScrolled, pageHeight/4, 50);
 		setAnimationValues({
-			// titleMarginTop: newTitleMarginTop,
 			titleSize: newTitleSize,
-			// titleLetterSp: newTitleLetterSp,
 			subtitleText: newSubtitleText,
 			subtitleSize: newSubtitleSize,
 			spacerHeight: newSpacerHeight,
@@ -51,9 +47,7 @@ const FirstPage = () => {
 			<div className={classNames.titleSpacer} style={{"height": `${animationValues.spacerHeight}px`}}></div>
 			<div className={classNames.titleContainer}>
 				<h1 className={classNames.mainTitle} style={{
-					// "marginTop": `${animationValues.titleMarginTop}%`,
 					"fontSize": `${animationValues.titleSize}vw`,
-					// "letterSpacing": `${animationValues.titleLetterSp}px`
 				}}>Make friends</h1>
 				<p className={classNames.mainSubtitle} style={{ "fontSize": `${animationValues.subtitleSize}vw` }}>
 					{animationValues.subtitleText}
