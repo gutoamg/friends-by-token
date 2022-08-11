@@ -59,7 +59,7 @@ const NFTDisplay = () => {
 			return prevValues;
 		});
 		setNftUrl(imageURLs[newCardNumber]);
-	}, [percentageScrolled, animation_value]);
+	}, [percentageScrolled, animation_value, imageURLs]);
 
 	useEffect(() => {
 		if (mouseInfo.target === 'NFTimage') setdisplayElement("none");
