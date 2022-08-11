@@ -14,7 +14,7 @@ export default function Home() {
 	useEffect(() => {
 		setPageHeight(pageRef.current.offsetHeight);
 		setPageWidth(pageRef.current.offsetWidth);
-	}, []);
+	}, [setPageHeight]);
 
 	useEffect(() => {
 		const resizeMethod = () => {
@@ -23,7 +23,7 @@ export default function Home() {
 		}
 		window.addEventListener('resize', resizeMethod);
 		return () => window.removeEventListener('resize', resizeMethod);
-	}, []);
+	}, [setPageHeight]);
 
 
 	return (

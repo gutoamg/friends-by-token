@@ -43,7 +43,7 @@ const FirstPage = () => {
 			subtitleSize: newSubtitleSize,
 			spacerHeight: newSpacerHeight,
 		});
-	}, [percentageScrolled, pageHeight]);
+	}, [percentageScrolled, pageHeight, animation_value]);
 
 
 	return (

@@ -33,7 +33,7 @@ const Background = () => {
 			prevValues.bgGradientRight = `hsla(${newBgGradientRight}, 73%, 39%, 1)`;
 			return prevValues;
 		});
-	}, [percentageScrolled]);
+	}, [percentageScrolled, animation_value]);
 
 	useEffect(() => {
 		const newLeftPos = (mouseInfo.mouseX);
