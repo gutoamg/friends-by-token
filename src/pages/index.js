@@ -30,9 +30,7 @@ export default function Home() {
 
 
 	useEventListener("scroll", (e) => {
-		console.log("SCROL ----");
 		const newPercentageScrolled = window.scrollY / (refToPageHeight.current - window.innerHeight);
-		console.log(newPercentageScrolled, window.scrollY, refToPageHeight.current, window.innerHeight);
 		setPercentageScrolled(newPercentageScrolled);
 	});
 	// useEffect(() => {

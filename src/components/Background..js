@@ -11,31 +11,47 @@ const Background = () => {
 	let { mouseInfo } = useContext(MouseMoveContext);
 	const [animationValues, setAnimationValues] = useState({
 		leftBallColor: `hsl(0, 73%, 39%)`,
-		rightBallColor: `hsl(0, 73%, 39%)`,
-		bgGradientLeft: `hsl(0, 73%, 39%)`,
-		bgGradientRight: `hsl(0, 73%, 39%)`,
+		rightBallColor: `hsl(150, 73%, 39%)`,
+		bgGradientLeft: `hsl(-150, 73%, 39%)`,
+		bgGradientRight: `hsl(50, 73%, 39%)`,
 		visCursorWidth: `200px`,
 		visCursorHeight: `200px`,
+		bgGradientPosLeft: 0,
+		bgGradientPosTop: 0,
 	});
 
 
 
 	useEffect(() => {
-		// console.log(scrollPos);
+		// Previous values
+		const prevVisWidth = animationValues.visCursorWidth;
+		const prevVisHeight = animationValues.visCursorHeight;
+		const prevBgGdPosLeft = animationValues.bgGradientPosLeft;
+		const prevBgGdPosTop = animationValues.bgGradientPosTop;
+		// New values
 		const newLeftBallColor = animation_value(0, 1, percentageScrolled, 0, 309);
 		const newRightBallColor = animation_value(0, 1, percentageScrolled, 150, 360);
 		const newBgGradientLeft = animation_value(0, 1, percentageScrolled, -150, 300);
 		const newBgGradientRight = animation_value(0, 1, percentageScrolled, 50, 1000);
-		setAnimationValues(prevValues => {
-			prevValues.leftBallColor = `hsla(${newLeftBallColor}, 73%, 39%, 1)`;
-			prevValues.rightBallColor = `hsla(${newRightBallColor}, 73%, 39%, 0.8)`;
-			prevValues.bgGradientLeft = `hsla(${newBgGradientLeft}, 73%, 39%, 1)`;
-			prevValues.bgGradientRight = `hsla(${newBgGradientRight}, 73%, 39%, 1)`;
-			return prevValues;
+		setAnimationValues({
+			leftBallColor: `hsla(${newLeftBallColor}, 73%, 39%, 1)`,
+			rightBallColor: `hsla(${newRightBallColor}, 73%, 39%, 0.8)`,
+			bgGradientLeft: `hsla(${newBgGradientLeft}, 73%, 39%, 1)`,
+			bgGradientRight: `hsla(${newBgGradientRight}, 73%, 39%, 1)`,
+			bgGradientPosLeft: prevBgGdPosLeft,
+			bgGradientPosTop: prevBgGdPosTop,
+			visCursorWidth: prevVisWidth,
+			visCursorHeight: prevVisHeight,
 		});
-	}, [percentageScrolled, animation_value]);
+	}, [percentageScrolled]);
 
 	useEffect(() => {
+		// Prev values
+		const newLeftBallColor = animationValues.leftBallColor;
+		const newRightBallColor = animationValues.rightBallColor;
+		const newBgGradientLeft = animationValues.bgGradientLeft;
+		const newBgGradientRight = animationValues.bgGradientRight;
+		// New values
 		const newLeftPos = (mouseInfo.mouseX);
 		const newTopPos = (mouseInfo.mouseY);
 		let newVisCursorW = 0;
@@ -43,16 +59,19 @@ const Background = () => {
 		if (mouseInfo.target === 'NFTimage') {
 			newVisCursorW = 0;
 			newVisCursorH = 0;
-		} else  {
+		} else {
 			newVisCursorW = 100;
 			newVisCursorH = 100;
 		}
-		setAnimationValues(prevValues => {
-			prevValues.bgGradientPosLeft = `${newLeftPos}px`;
-			prevValues.bgGradientPosTop = `${newTopPos}px`;
-			prevValues.visCursorWidth = `${newVisCursorW}px`;
-			prevValues.visCursorHeight = `${newVisCursorH}px`;
-			return prevValues;
+		setAnimationValues({
+			leftBallColor: newLeftBallColor,
+			rightBallColor: newRightBallColor,
+			bgGradientLeft: newBgGradientLeft,
+			bgGradientRight: newBgGradientRight,
+			bgGradientPosLeft: `${newLeftPos}px`,
+			bgGradientPosTop: `${newTopPos}px`,
+			visCursorWidth: `${newVisCursorW}px`,
+			visCursorHeight: `${newVisCursorH}px`,
 		});
 	}, [mouseInfo]);
 

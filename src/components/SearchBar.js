@@ -24,9 +24,11 @@ const SearchBar = () => {
         }
 
         if (event.keyCode === 13) { // Enter pressed
+            const prevLinks = userInfo.imagesClicked;
             setUserInfo({ 
                 email: `${textInput.current.value}`,
-                emailSubmitted: 'true' 
+                emailSubmitted: 'true',
+                imagesClicked: prevLinks,
             });
             textInput.current.blur();
             login();
@@ -37,9 +39,11 @@ const SearchBar = () => {
     const input_clicked = (event) => {
         if (event.target.id === "searchBar__search") {
             if (textInput.current.value === "") return;
+            const prevLinks = userInfo.imagesClicked;
             setUserInfo({ 
                 email: `${textInput.current.value}`,
-                emailSubmitted: 'true' 
+                emailSubmitted: 'true',
+                imagesClicked: prevLinks,
             });
             login();
         } else if (event.target.id === "searchBar__clear") {

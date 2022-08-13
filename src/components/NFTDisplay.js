@@ -3,17 +3,51 @@ import { ScrollContext } from '../contexts/ScrollContext';
 import classNames from '../../styles/NFTDisplay.module.scss';
 import Image from 'next/image';
 import { MouseMoveContext } from '../contexts/MouseMoveContext';
+import { UserContext } from '../contexts/UserContext';
 
 
 
 const NFTDisplay = ({ parentUrl, topPos, leftPos, classN }) => {
-	let { animation_value, percentageScrolled, pageHeight, pageWidth } = useContext(ScrollContext);
+	let { animation_value, percentageScrolled, pageWidth } = useContext(ScrollContext);
+	let { userInfo, setUserInfo } = useContext(UserContext);
 	const { mouseInfo } = useContext(MouseMoveContext);
+	const [cardSize, setCardSize] = useState(pageWidth/5);
+
 	const [animationValues, setAnimationValues] = useState({
 		bgGradientLeft: `hsla(0, 73%, 39%, 1)`,
 		bgGradientRight: `hsla(0, 73%, 39%, 1)`,
 	});
 	const [displayElement, setdisplayElement] = useState("none");
+
+	const registerOnDatabase = (event) => {
+		setCardSize(0);
+		if (userInfo.imagesClicked.length === 0) {
+			const email = userInfo.email;
+			const submission = userInfo.emailSubmitted;
+			const allImagesClicked = userInfo.imagesClicked;
+			allImagesClicked.push(parentUrl);
+			setUserInfo({
+				email: email,
+				emailSubmitted: submission,
+				imagesClicked: allImagesClicked,
+			});
+		}
+		for (let link = 0; link < userInfo.imagesClicked.length; link++) {
+			const currentLink = userInfo.imagesClicked[link];
+			if (currentLink === parentUrl) break;
+			if ((currentLink !== parentUrl) && (link === userInfo.imagesClicked.length - 1)) {
+				const email = userInfo.email;
+				const submission = userInfo.emailSubmitted;
+				const allImagesClicked = userInfo.imagesClicked;
+				allImagesClicked.push(parentUrl);
+				setUserInfo({
+					email: email,
+					emailSubmitted: submission,
+					imagesClicked: allImagesClicked,
+				});
+			}
+		}
+	}
 
 
 	useEffect(() => {
@@ -32,15 +66,22 @@ const NFTDisplay = ({ parentUrl, topPos, leftPos, classN }) => {
 		else setdisplayElement("none");
 	}, [mouseInfo]);
 
+	useEffect(() => {
+	  setCardSize(pageWidth/5);
+	}, [pageWidth])
+	
 
 
 	return (
-		<div className={`${classNames.NFTContainer} ${classN}`} style={{
-			'width': `${pageWidth/5}px`, 
-			'height': `${pageWidth/5}px`,
-			'top': `${topPos}%`,
-			'left': `${leftPos}%`,
-		}}>
+		<div className={`${classNames.NFTContainer} ${classN}`}
+			style={{
+				'width': `${cardSize}px`,
+				'height': `${cardSize}px`,
+				'top': `${topPos}%`,
+				'left': `${leftPos}%`,
+			}}
+			onClick={registerOnDatabase}
+		>
 			<div id='NFTimage' className={`${classNames.imageBg} ${classNames.curved}`} style={{
 				"backgroundImage": `linear-gradient(${animationValues.bgGradientRight}, ${animationValues.bgGradientLeft})`,
 			}}>
@@ -50,8 +91,8 @@ const NFTDisplay = ({ parentUrl, topPos, leftPos, classN }) => {
 					className={`${classNames.curved} ${classNames.NFTimage}`}
 					src={parentUrl}
 					alt="Picture of the author"
-					width={pageWidth/5 - 10}
-					height={pageWidth/5 - 10}
+					width={pageWidth / 5 - 10}
+					height={pageWidth / 5 - 10}
 					layout="responsive"
 				/>
 			</div>

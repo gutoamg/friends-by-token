@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import classNames from '../../styles/Gallery.module.scss';
 import NFTDisplay from '../components/NFTDisplay';
 import { ScrollContext } from '../contexts/ScrollContext';
+import { UserContext } from '../contexts/UserContext';
 
 
 const imageURLs = [
@@ -21,11 +22,80 @@ const imageURLs = [
 
 const Gallery = () => {
 	let { animation_value, percentageScrolled } = useContext(ScrollContext);
+	let { userInfo } = useContext(UserContext);
 	const [animationValues, setAnimationValues] = useState({
 		scale: 0.8,
 		opacity: 0,
 		containerPos: 'relative',
 	});
+	const [lastScrollPos, setLastScrollPos] = useState(0);
+	const [imgPositions, setImgPositions] = useState({
+		center: 45 + Math.random() * 15,
+		diagBottom: 70 + Math.random() * 15,
+		diagTop: 10 + Math.random() * 5,
+		random1: 70 + Math.random() * 10,
+		random2: 20 + Math.random() * 10,
+		random3: 10 + Math.random() * 5,
+		random4: 50 + Math.random() * 5,
+		random5: Math.random() * 80,
+		random6: Math.random() * 80,
+		random7: Math.random() * 80,
+		random8: 80 + Math.random() * 5,
+		random9: 85 + Math.random() * 5,
+	});
+	const [friendsValues, setFriendsValues] = useState({
+		dimensions: 80,
+		top: 100,
+		left: 100,
+		transform: 105,
+		borderRadius: 50,
+	});
+	const [contOpacity, setContOpacity] = useState(0);
+
+	const containerVisibility = () => {
+		if (contOpacity === 1) {
+			const topPos = friendsValues.top;
+			const leftPos = friendsValues.left;
+			const ts = friendsValues.transform;
+			setFriendsValues({
+				dimensions: 80,
+				top: topPos,
+				left: leftPos,
+				transform: ts,
+				borderRadius: 50,
+			});
+		}
+		if (friendsValues.dimensions === 80) {
+			setFriendsValues({
+				dimensions: 300,
+				top: 100,
+				left: 100,
+				transform: 105,
+				borderRadius: 5
+			});
+		}
+	}
+
+	useEffect(() => {
+		if ((percentageScrolled - lastScrollPos) > 0.1 || (percentageScrolled - lastScrollPos) < -0.1) {
+			setLastScrollPos(percentageScrolled);
+			setImgPositions({
+				center: 45 + Math.random() * 15,
+				diagBottom: 70 + Math.random() * 15,
+				diagTop: 10 + Math.random() * 5,
+				random1: 70 + Math.random() * 10,
+				random2: 20 + Math.random() * 10,
+				random3: 10 + Math.random() * 5,
+				random4: 50 + Math.random() * 5,
+				random5: Math.random() * 80,
+				random6: Math.random() * 80,
+				random7: Math.random() * 80,
+				random8: 80 + Math.random() * 5,
+				random9: 85 + Math.random() * 5,
+			});
+		}
+	}, [percentageScrolled]);
+
 
 	useEffect(() => {
 		const newScale = animation_value(0.6, 1, percentageScrolled, 0.8, 1);
@@ -39,6 +109,21 @@ const Gallery = () => {
 		});
 	}, [percentageScrolled, animation_value]);
 
+	useEffect(() => {
+		console.log(userInfo);
+		if (userInfo.imagesClicked.length >= 4) {
+			setContOpacity(1);
+			setFriendsValues({
+				dimensions: 300,
+				top: 100,
+				left: 100,
+				transform: 105,
+				borderRadius: 5
+			});
+		}
+	}, [userInfo]);
+
+
 
 	return (
 		<div className={classNames.galleryContainer} style={{
@@ -49,18 +134,36 @@ const Gallery = () => {
 				"opacity": `${animationValues.opacity}`,
 			}}>
 				<div className={classNames.galleryContent}>
-					<NFTDisplay classN={classNames.animation1} topPos={50 + Math.random() * 10} leftPos={50 + Math.random() * 10} parentUrl={imageURLs[0]} />
-					<NFTDisplay classN={classNames.animation2} topPos={60 + Math.random() * 10} leftPos={60 + Math.random() * 10} parentUrl={imageURLs[1]} />
-					<NFTDisplay classN={classNames.animation3} topPos={40 + Math.random() * 10} leftPos={40 + Math.random() * 10} parentUrl={imageURLs[2]} />
-					<NFTDisplay classN={classNames.animation4} topPos={60 + Math.random() * 10} leftPos={40 + Math.random() * 10} parentUrl={imageURLs[3]} />
-					<NFTDisplay classN={classNames.animation5} topPos={40 + Math.random() * 10} leftPos={60 + Math.random() * 10} parentUrl={imageURLs[4]} />
-					<NFTDisplay classN={classNames.animation4} topPos={Math.random() * 80} leftPos={Math.random() * 80} parentUrl={imageURLs[5]} />
-					<NFTDisplay classN={classNames.animation2} topPos={Math.random() * 80} leftPos={Math.random() * 80} parentUrl={imageURLs[6]} />
-					<NFTDisplay classN={classNames.animation3} topPos={Math.random() * 80} leftPos={Math.random() * 80} parentUrl={imageURLs[7]} />
-					<NFTDisplay classN={classNames.animation1} topPos={Math.random() * 80} leftPos={Math.random() * 80} parentUrl={imageURLs[8]} />
+					<NFTDisplay classN={classNames.animation1} topPos={imgPositions.center} leftPos={imgPositions.center} parentUrl={imageURLs[0]} />
+					<NFTDisplay classN={classNames.animation2} topPos={imgPositions.diagBottom} leftPos={imgPositions.diagBottom} parentUrl={imageURLs[1]} />
+					<NFTDisplay classN={classNames.animation3} topPos={imgPositions.diagTop} leftPos={imgPositions.diagTop} parentUrl={imageURLs[2]} />
+					<NFTDisplay classN={classNames.animation4} topPos={imgPositions.random1} leftPos={imgPositions.random2} parentUrl={imageURLs[3]} />
+					<NFTDisplay classN={classNames.animation5} topPos={imgPositions.random2} leftPos={imgPositions.random1} parentUrl={imageURLs[4]} />
+					<NFTDisplay classN={classNames.animation4} topPos={imgPositions.random3} leftPos={imgPositions.random4} parentUrl={imageURLs[5]} />
+					<NFTDisplay classN={classNames.animation2} topPos={imgPositions.random5} leftPos={imgPositions.random6} parentUrl={imageURLs[6]} />
+					<NFTDisplay classN={classNames.animation3} topPos={imgPositions.random7} leftPos={imgPositions.random8} parentUrl={imageURLs[7]} />
+					<NFTDisplay classN={classNames.animation1} topPos={imgPositions.random9} leftPos={imgPositions.random4} parentUrl={imageURLs[8]} />
 				</div>
 			</div>
-			
+			<div className={`${classNames.friendsContainer} ${classNames.friendsContainer}`}
+				onClick={containerVisibility}
+				style={{
+					"opacity": contOpacity,
+					"height": `${friendsValues.dimensions}px`,
+					"width": `${friendsValues.dimensions}px`,
+					"top": `${friendsValues.top}%`,
+					"left": `${friendsValues.left}%`,
+					"transform": `translate(-${friendsValues.transform}%, -${friendsValues.transform}%)`,
+					"borderRadius": `${friendsValues.borderRadius}%`
+				}}
+			>
+				<h1 className={classNames.friendsTitle}>Hey {userInfo.email}, those are your new friends:</h1>
+				<p className={classNames.friendEmail}>notfake@coldmail.com</p>
+				<p className={classNames.friendEmail}>alwaystruthful@coldmail.com</p>
+				<p className={classNames.friendEmail}>mrrobot@dotnet.com</p>
+				<p className={classNames.friendEmail}>coined@omail.com</p>
+				<p className={classNames.friendEmail}>messageme@msn.com</p>
+			</div>
 		</div>
 	)
 }

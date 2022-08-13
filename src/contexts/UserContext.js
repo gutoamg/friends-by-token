@@ -5,7 +5,8 @@ export const UserContext = createContext();
 export const UserProvider = (props) => {
 	const [userInfo, setUserInfo] = useState({
 		email: '',
-		emailSubmitted: 'false'
+		emailSubmitted: 'false',
+		imagesClicked: [],
 	});
 
 	return (

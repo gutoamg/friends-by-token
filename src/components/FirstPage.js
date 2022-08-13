@@ -27,21 +27,21 @@ const FirstPage = () => {
 		containerTop: 0,
 	});
 
-	useEffect(() => {
-		console.log("Animation", animation_value);
-	}, [animation_value]);
+	// useEffect(() => {
+	// 	console.log("Animation", animation_value);
+	// }, [animation_value]);
 
-	useEffect(() => {
-		console.log("percentagescrolled", percentageScrolled);
-	}, [percentageScrolled]);
+	// useEffect(() => {
+	// 	console.log("percentagescrolled", percentageScrolled);
+	// }, [percentageScrolled]);
 
-	useEffect(() => {
-		console.log("pageheight", pageHeight);
-	}, [pageHeight]);
+	// useEffect(() => {
+	// 	console.log("pageheight", pageHeight);
+	// }, [pageHeight]);
 
-	useEffect(() => {
-		console.log("pagewidth", pageWidth);
-	}, [pageWidth]);
+	// useEffect(() => {
+	// 	console.log("pagewidth", pageWidth);
+	// }, [pageWidth]);
 
 
 	useEffect(() => {

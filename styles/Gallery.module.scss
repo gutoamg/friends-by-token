@@ -29,6 +29,49 @@
     left: 50%;
     background-color: transparent;
     transform: translate(-50%, -50%);
+    transition: all 200ms ease-in-out;
+}
+
+.friendsContainer {
+    width: 80px;
+    height: 80px;
+    transform: translate(-105%, -105%);
+    position: fixed;
+    top: 100%;
+    left: 100%;
+    background-color: rgba($color: #121212, $alpha: 1);
+    opacity: 0;
+    border-radius: 50%;
+    transition: all 200ms ease-in-out;
+    overflow-y: scroll;
+    overflow-x: scroll;
+}
+
+.friendsTitle {
+    width: 100%;
+    height: auto;
+    position: relative;
+    padding: 10px;
+    margin-top: 10px;
+    font-family: 'Raleway', sans-serif;
+    text-align: left;
+    font-size: 30px;
+    font-weight: 500;
+    letter-spacing: 0px;
+    color: white;
+}
+
+.friendEmail {
+    width: 100%;
+    height: auto;
+    position: relative;
+    padding: 1px 10px 1px 10px;
+    font-family: 'Raleway', sans-serif;
+    text-align: left;
+    font-size: 30px;
+    font-weight: 300;
+    letter-spacing: -2px;
+    color: rgb(185, 136, 0);
 }
 
 @supports ((-webkit-backdrop-filter: blur()) or (backdrop-filter: blur())) or (-webkit-backdrop-filter: blur()) {

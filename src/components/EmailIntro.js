@@ -13,7 +13,7 @@ const EmailIntro = () => {
 				setDisplay('none');
 			}, 500);
 		}
-	}, [userInfo])
+	}, [userInfo]);
 
 
 	return (
