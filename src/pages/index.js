@@ -4,21 +4,53 @@ import styles from '../../styles/Home.module.scss'
 import Background from '../components/Background.'
 import EmailIntro from '../components/EmailIntro'
 import FirstPage from '../components/FirstPage'
-import NFTDisplay from '../components/NFTDisplay'
+import Gallery from '../components/Gallery'
 import { ScrollContext } from '../contexts/ScrollContext';
 
+
+// Optimized global event listener functionality
+const useEventListener = (eventName, eventCallback) => {
+    const callbackRef = useRef(eventCallback);
+    useEffect(() => {
+        callbackRef.current = eventCallback; // updating callback internally if it changes
+    });
+    useEffect(() => {
+        const updatedCallback = (e) => callbackRef.current(e); // Returns updated callback version
+        window.addEventListener(eventName, updatedCallback);
+        return () => window.removeEventListener(eventName, updatedCallback);
+    }, [eventName]);
+}
+
+
+
 export default function Home() {
-	let { setPageHeight, setPageWidth } = useContext(ScrollContext);
+	let { setPageHeight, setPageWidth, setPercentageScrolled } = useContext(ScrollContext);
 	const pageRef = useRef(0);
+	const refToPageHeight = useRef(0);
+
+
+	useEventListener("scroll", (e) => {
+		console.log("SCROL ----");
+		const newPercentageScrolled = window.scrollY / (refToPageHeight.current - window.innerHeight);
+		console.log(newPercentageScrolled, window.scrollY, refToPageHeight.current, window.innerHeight);
+		setPercentageScrolled(newPercentageScrolled);
+	});
+	// useEffect(() => {
+    //     return () => window.removeEventListener("scroll", scrollMethod);
+    // }, []);
+
+
 
 	useEffect(() => {
 		setPageHeight(pageRef.current.offsetHeight);
+		refToPageHeight.current = pageRef.current.offsetHeight;
 		setPageWidth(pageRef.current.offsetWidth);
-	}, [setPageHeight, setPageWidth]);
+	}, []);
 
 	useEffect(() => {
 		const resizeMethod = () => {
 			setPageHeight(pageRef.current.offsetHeight);
+			refToPageHeight.current = pageRef.current.offsetHeight;
 			setPageWidth(pageRef.current.offsetWidth);
 		}
 		window.addEventListener('resize', resizeMethod);
@@ -54,11 +86,11 @@ export default function Home() {
 				<meta name="theme-color" content="rgb(0,0,0)" />
 			</Head>
 
+			<Background />
 			<main className={styles.main} ref={pageRef}>
-				<Background />
 				<FirstPage />
+				{/* <Gallery /> */}
 				<EmailIntro />
-				{/* <NFTDisplay /> */}
 			</main>
 		</div>
 	)
