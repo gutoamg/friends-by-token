@@ -81,6 +81,7 @@ const NFTDisplay = ({ parentUrl, topPos, leftPos, classN }) => {
 				'left': `${leftPos}%`,
 			}}
 			onClick={registerOnDatabase}
+			onTouchStart={registerOnDatabase}
 		>
 			<div id='NFTimage' className={`${classNames.imageBg} ${classNames.curved}`} style={{
 				"backgroundImage": `linear-gradient(${animationValues.bgGradientRight}, ${animationValues.bgGradientLeft})`,

@@ -9,6 +9,9 @@ const SearchBar = () => {
     const [inputValue, setInputValue] = useState('');
 	let { userInfo, setUserInfo } = useContext(UserContext);
 
+    const login = () => {
+        setSectionClass(classNames.loggedMenu);
+    }
 
     const update_input_value = (event) => {
         setInputValue(event.target.value);
@@ -55,9 +58,6 @@ const SearchBar = () => {
         }
     }
 
-    const login = () => {
-        setSectionClass(classNames.loggedMenu);
-    }
 
 
     return (
