@@ -11,7 +11,7 @@ const NFTDisplay = ({ parentUrl, topPos, leftPos, classN }) => {
 	let { animation_value, percentageScrolled, pageWidth } = useContext(ScrollContext);
 	let { userInfo, setUserInfo } = useContext(UserContext);
 	const { mouseInfo } = useContext(MouseMoveContext);
-	const [cardSize, setCardSize] = useState(pageWidth/5);
+	const [cardSize, setCardSize] = useState(pageWidth / 5);
 
 	const [animationValues, setAnimationValues] = useState({
 		bgGradientLeft: `hsla(0, 73%, 39%, 1)`,
@@ -67,9 +67,9 @@ const NFTDisplay = ({ parentUrl, topPos, leftPos, classN }) => {
 	}, [mouseInfo]);
 
 	useEffect(() => {
-	  setCardSize(pageWidth/5);
+		setCardSize(pageWidth / 5);
 	}, [pageWidth])
-	
+
 
 
 	return (
@@ -80,8 +80,6 @@ const NFTDisplay = ({ parentUrl, topPos, leftPos, classN }) => {
 				'top': `${topPos}%`,
 				'left': `${leftPos}%`,
 			}}
-			onClick={registerOnDatabase}
-			onTouchStart={registerOnDatabase}
 		>
 			<div id='NFTimage' className={`${classNames.imageBg} ${classNames.curved}`} style={{
 				"backgroundImage": `linear-gradient(${animationValues.bgGradientRight}, ${animationValues.bgGradientLeft})`,
@@ -95,6 +93,8 @@ const NFTDisplay = ({ parentUrl, topPos, leftPos, classN }) => {
 					width={pageWidth / 5 - 10}
 					height={pageWidth / 5 - 10}
 					layout="responsive"
+					onClick={registerOnDatabase}
+					onTouchStart={registerOnDatabase}
 				/>
 			</div>
 		</div>
